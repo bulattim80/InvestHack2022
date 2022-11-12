@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from 'react';
 
 import Babble from '../Widgets/Babble';
+import FormMessage from '../Widgets/FormMessage';
+import Header from '../Widgets/Header';
 // import MessageForm from './MessageForm';
 
 export default function Chat() {
@@ -10,29 +12,8 @@ export default function Chat() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [users, setUsers] = useState(new Map());
-
-    function GetName(userId) {
-        console.log("users add0", users);
-        // if (users.get(userId) == null) {
-        //     getUserInfo(userId).then((res) => {
-        //         console.log("users add1", users);
-        //         const newUsers = users;
-        //         newUsers.set(userId,
-        //             {
-        //                 surname: res.surname,
-        //                 name: res.name,
-        //                 middleName: res.middleName,
-        //                 avatar: res.avatar
-        //             });
-        //         setUsers(newUsers);
-        //         console.log("users add2", users);
-        //     });
-        // }
-        console.log("users add3", users);
-        const user = users.get(userId);
-        // return user.surname + " " + user.name + " " + user.middleName;
-    }
+    const [selfInfo, setSelf] = useState();
+    const [companionInfo, setCompanionInfo] = useState();
 
 
     const getUserInfo = async (userId) => {
@@ -69,10 +50,35 @@ export default function Chat() {
         redirect: 'follow'
     };
 
+    const getUsersInfo = async (messages) => {
+        console.log("in func getUsersInfo", data);
+        console.log("in func foreach", messages[0]);
+        getUserInfo(userId).then((res) => {
+            setSelf({
+                surname: res.surname,
+                name: res.name,
+                middleName: res.middleName,
+                avatar: res.avatar
+            });
+        });
+        if (messages.length == 0) return;
+        let compId = messages[0].sender;
+        if (compId == userId) compId = messages[0].recipient;
+        getUserInfo().then((res) => {
+            setCompanionInfo({
+                surname: res.surname,
+                name: res.name,
+                middleName: res.middleName,
+                avatar: res.avatar
+            });
+        });
+        setLoading(false);
+    }
+
     useEffect(() => {
         setLoading(true);
         const fetchMessages = async (dialogId) => {
-            fetch("https://hack.invest-open.ru/chat/history?dialogId="
+            return fetch("https://hack.invest-open.ru/chat/history?dialogId="
                 + dialogId, options)
                 .then(response => {
                     if (response.ok) {
@@ -82,8 +88,9 @@ export default function Chat() {
                 })
                 .then(resJson => {
                     setData(resJson);
+                    console.log("in func", resJson);
+                    return resJson;
                 })
-                .finally(() => setLoading(false));
         }
         const fetchDialogId = async () => {
             return fetch("https://hack.invest-open.ru/chat/dialog", options)
@@ -101,40 +108,47 @@ export default function Chat() {
                     setError(true);
                 });
         }
-        const getUsersInfo = async (messages) => {
-            messages.forEach(element => {
-                getUserInfo(element.userId).then((res) => {
-                    const newUsers = users;
-                    newUsers.set(element.userId,
-                        {
-                            surname: res.surname,
-                            name: res.name,
-                            middleName: res.middleName,
-                            avatar: res.avatar
-                        });
-                    setUsers(newUsers);
-                });
-            });
-        }
         fetchDialogId()
             .then(dialogId => fetchMessages(dialogId))
-            .then(() => getUsersInfo(data));
+            .then(messages => {
+                setData(messages);
+                console.log("in then", messages);
+                console.log("in then data", data);
+                getUsersInfo(messages)
+            })
+        console.log("in end of useEffect", data);
     }, [])
 
+    const getName = (mesUserId) => {
+        // if (userId === mesUserId) {
+        //     return selfInfo.surname + " " + selfInfo.name + " " + selfInfo.middleName;
+        // } else {
+        //     return companionInfo.surname + " " + companionInfo.name + " " + companionInfo.middleName;
+        // }
+        return "Test";
+    }
+
+    // getUsersInfo(data);
     if (loading) return "Loading...";
     if (error) return "Error!";
+
+    console.log("after error", data);
+    // console.log(selfInfo);
+    // console.log(companionInfo);
 
     for (let index = data.messages.length - 1; index >= 0; index--) {
         result.push(Babble(data.messages[index],
             userId == data.messages[index].sender,
-            GetName(userId, data.messages[index].sender)));
+            getName(data.messages[index].sender)));
     }
     return (
-        <div class="container py-5">
+        <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-10">
+                <div class="col-12">
                     <div>
+                        <Header />
                         {result}
+                        <FormMessage />
                     </div>
                 </div>
             </div>
