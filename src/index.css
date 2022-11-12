@@ -39,3 +39,52 @@ code {
   width: 15px;
   height: 15px;
 }
+
+.form-group 
+{
+  box-shadow: 0px -4px 8px rgba(0, 125, 241, 0.12);
+ display: flex;
+}
+
+.form-group textarea{
+  border-radius: 15px;
+  background: #F1FAFE;
+  border-color: #3AB6EC;
+  border-width: 3px;
+  max-height: 100px;
+}
+
+.formIcons svg{
+  height: 1.8em;
+  color: #3AB6EC;
+}
+
+.headerIconsL svg{
+  height: 2.5em;
+  color: #3AB6EC;
+}
+.headerIconsR svg{
+  height: 2.5em;
+  color: #F94241;
+}
+
+.cb{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cb h1{
+  font-size: 20px;
+}
+.cb p{
+  font-size: 15px;
+}
+
+.navbar{
+  border-bottom: 1px solid #D8F0FB;
+box-shadow: 0px 4px 4px rgba(0, 92, 176, 0.05);
+background-color: #FFFFFF;
+}
+.header{
+  margin-bottom: 6em;
+}

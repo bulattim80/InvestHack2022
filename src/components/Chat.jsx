@@ -1,6 +1,9 @@
 import React from 'react';
 
 import Babble from './Babble';
+import FormMessage from './FormMessage';
+import Header from './Header';
+
 // import MessageForm from './MessageForm';
 
 const data = {
@@ -228,8 +231,34 @@ const data = {
     ]
 }
 
-function Chat(params) {
-  var result = [];
+
+
+export default function Chat() {
+    const role = sessionStorage.getItem("role");
+    const userId = sessionStorage.getItem("userId");
+    const token = localStorage.getItem('jwtToken');
+    let dialogId = -1;
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    function GetName(token, id_message) {
+        if (userId == id_message) {
+            if (role == "OPERATOR") {
+                return "Оператор";
+            } else {
+                return "Пользователь";
+            }
+        } else {
+            if (role == "OPERATOR") {
+                return "Пользователь";
+            } else {
+                return "Оператор";
+            }
+        }
+    }
+
+    var result = [];
 
   // onSendMessage = async () => {
   //   const api_url = "";
@@ -237,33 +266,24 @@ function Chat(params) {
   //   console.log(data);
   // }
 
-  for (let index = 0; index < data.messages.length; index++) {
-    result.push(Babble(data.messages[index]));
-  }
-  return (
-    <div class="container py-5">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-8 col-lg-6 col-xl-4">
-
-          {/* <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center p-3"
-              style="border-top: 4px solid #ffa900;">
-              <h5 class="mb-0">Chat messages</h5>
-              <div class="d-flex flex-row align-items-center">
-                <span class="badge bg-warning me-3">20</span>
-                <i class="fas fa-minus me-3 text-muted fa-xs"></i>
-                <i class="fas fa-comments me-3 text-muted fa-xs"></i>
-                <i class="fas fa-times text-muted fa-xs"></i>
-              </div>
-            </div> */}
-            <div>
-              {result}
-              {/* <MessageForm onSendMessage={this.onSendMessage}/> */}
+    for (let index = data.messages.length - 1; index >= 0; index--) {
+        result.push(Babble(data.messages[index],
+            userId == data.messages[index].sender,
+            GetName(userId, data.messages[index].sender)));
+    }
+    return (
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    <div>
+                        <Header />
+                        {result}
+                        <FormMessage />
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default Chat;
