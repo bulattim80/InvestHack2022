@@ -235,7 +235,6 @@ export default function Chat() {
     const role = sessionStorage.getItem("role");
     const userId = sessionStorage.getItem("userId");
     const token = localStorage.getItem('jwtToken');
-    let dialogId = -1;
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -255,64 +254,58 @@ export default function Chat() {
             }
         }
     }
-    
+
     var result = [];
 
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": 'Bearer ' + token
+        },
+        redirect: 'follow'
+    };
+
     useEffect(() => {
-        setData(testdata);
-        setLoading(false);
-        // fetch("https://hack.invest-open.ru/chat/dialog",
-        //     {
-        //         mode: 'no-cors',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             "X-Authorization": 'Bearer ' + token
-        //         },
-        //         redirect: 'follow'
-        //     })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         }
-        //         throw response;
-        //     })
-        //     .then(data => {
-        //         dialogId = data.dialogId;
-        //     })
-        //     .catch(error => {
-        //         console.log("error", error);
-        //         setError(true);
-        //     });
-        // fetch("https://hack.invest-open.ru/chat/history?dialogId=" + dialogId,
-        //     {
-        //         mode: 'no-cors',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             "X-Authorization": 'Bearer ' + token
-        //         },
-        //         redirect: 'follow'
-        //     })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         }
-        //         throw response;
-        //     })
-        //     .then(data => {
-        //         setData(data);
-        //     })
-        //     .catch(error => {
-        //         console.log("error", error);
-        //         setError(true);
-        //     })
-        //     .finally(() => {
-        //         setLoading(false);
-        //     });
+        setLoading(true);
+        const fetchMessages = async (dialogId) => {
+            fetch("https://hack.invest-open.ru/chat/history?dialogId="
+                + dialogId, options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw response;
+                })
+                .then(resJson => {
+                    console.log(resJson);
+                    setData(resJson);
+                })
+                .finally(() => setLoading(false));
+        }
+        const fetchDialogId = async () => {
+            return fetch("https://hack.invest-open.ru/chat/dialog", options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw response;
+                })
+                .then(json => {
+                    return json.dialogId;
+                })
+                .catch(error => {
+                    console.log("error", error);
+                    setError(true);
+                });
+        }
+        fetchDialogId()
+            .then(dialogId => {
+                fetchMessages(dialogId);
+            });
     }, [])
 
     if (loading) return "Loading...";
     if (error) return "Error!";
-    console.log(data);
 
     for (let index = data.messages.length - 1; index >= 0; index--) {
         result.push(Babble(data.messages[index],

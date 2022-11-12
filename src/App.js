@@ -12,6 +12,7 @@ export default function App() {
   const token = localStorage.getItem('jwtToken');
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://hack.invest-open.ru/jwt/verify", {
       method: 'POST',
       headers: {
