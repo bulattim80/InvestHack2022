@@ -11,7 +11,7 @@ export default function Chat() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    function GetName(token, id_message) {
+    function GetName(id_message) {
         if (userId == id_message) {
             if (role == "OPERATOR") {
                 return "Оператор";
@@ -49,7 +49,6 @@ export default function Chat() {
                     throw response;
                 })
                 .then(resJson => {
-                    console.log(resJson);
                     setData(resJson);
                 })
                 .finally(() => setLoading(false));

@@ -13,6 +13,11 @@ export default function App() {
 
   useEffect(() => {
     setLoading(true);
+    if (!token) {
+      setError(true);
+      setLoading(false);
+      return;
+    }
     fetch("https://hack.invest-open.ru/jwt/verify", {
       method: 'POST',
       headers: {
