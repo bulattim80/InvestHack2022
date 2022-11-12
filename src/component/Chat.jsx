@@ -1,10 +1,10 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 
 import Babble from './Babble';
-import useToken from '../component/useToken';
+import useToken from './useToken';
 // import MessageForm from './MessageForm';
 
-const data = {
+const testdata = {
     "messages": [
         {
             "messageId": "926fc5b6-58e8-4fd9-8e3b-4c80af3d13b2",
@@ -229,56 +229,95 @@ const data = {
     ]
 }
 
-function GetName(token, id_message) {
-    if (token.userId == id_message) {
-        if (token.role == "OPERATOR") {
-            return "Оператор";
-        } else {
-            return token.login;
-        }
-    } else {
-        if (token.role == "OPERATOR") {
-            return "Пользователь";
-        } else {
-            return "Оператор";
-        }
-    }
-}
+
 
 export default function Chat() {
-    const { token, setToken } = useToken();
-    var result = [];
-    console.log(token.jwtToken);
+    const role = sessionStorage.getItem("role");
+    const userId = sessionStorage.getItem("userId");
+    const token = localStorage.getItem('jwtToken');
+    let dialogId = -1;
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    // const dialogId = await fetch("https://hack.invest-open.ru/chat/dialog",
-    //     {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             "X-Authorization": 'Bearer ' + token.jwtToken,
-    //             'Access-Control-Allow-Methods': 'GET,POST'
-    //         },
-    //     })
-    //     .then(response => {
-    //         return response.json().dialogId;
-    //     });
-    // console.log(dialogId);
-    // const data = await fetch("https://hack.invest-open.ru/chat/history?dialogId=" + dialogId,
-    // {
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         "X-Authorization": 'Bearer ' + token.jwtToken,
-    //     },
-    // })
-    // .then(response => {
-    //     return response.json();
-    // });
+    function GetName(token, id_message) {
+        if (userId == id_message) {
+            if (role == "OPERATOR") {
+                return "Оператор";
+            } else {
+                return "Пользователь";
+            }
+        } else {
+            if (role == "OPERATOR") {
+                return "Пользователь";
+            } else {
+                return "Оператор";
+            }
+        }
+    }
+    
+    var result = [];
+
+    useEffect(() => {
+        setData(testdata);
+        setLoading(false);
+        // fetch("https://hack.invest-open.ru/chat/dialog",
+        //     {
+        //         mode: 'no-cors',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             "X-Authorization": 'Bearer ' + token
+        //         },
+        //         redirect: 'follow'
+        //     })
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         }
+        //         throw response;
+        //     })
+        //     .then(data => {
+        //         dialogId = data.dialogId;
+        //     })
+        //     .catch(error => {
+        //         console.log("error", error);
+        //         setError(true);
+        //     });
+        // fetch("https://hack.invest-open.ru/chat/history?dialogId=" + dialogId,
+        //     {
+        //         mode: 'no-cors',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             "X-Authorization": 'Bearer ' + token
+        //         },
+        //         redirect: 'follow'
+        //     })
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         }
+        //         throw response;
+        //     })
+        //     .then(data => {
+        //         setData(data);
+        //     })
+        //     .catch(error => {
+        //         console.log("error", error);
+        //         setError(true);
+        //     })
+        //     .finally(() => {
+        //         setLoading(false);
+        //     });
+    }, [])
+
+    if (loading) return "Loading...";
+    if (error) return "Error!";
+    console.log(data);
 
     for (let index = data.messages.length - 1; index >= 0; index--) {
         result.push(Babble(data.messages[index],
-            token.userId == data.messages[index].sender,
-            GetName(token, data.messages[index].sender)));
+            userId == data.messages[index].sender,
+            GetName(userId, data.messages[index].sender)));
     }
     return (
         <div class="container py-5">

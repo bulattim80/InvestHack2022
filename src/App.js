@@ -1,38 +1,62 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 import './App.css';
-import Chat from './components/Chat';
+import Chat from './component/Chat';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import Home from './component/Home';
 import Login from './component/Login';
 import Logout from './component/Logout';
-import useToken from './component/useToken';
-
-async function verifyToken(token) {
-  var requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(),
-  };
-
-  return await fetch("https://hack.invest-open.ru/jwt/verify", requestOptions)
-    .then(response => {
-      console.log(response.json());
-      response.json();
-    })
-    .catch(error => console.log('error', error));
-}
 
 export default function App() {
-  const { token, setToken } = useToken();
-  if (!token) {
-    // console.log(verifyToken(token.jwtToken));
-    return <Login setToken={setToken} />
-  }
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const token = localStorage.getItem('jwtToken');
+
+  useEffect(() => {
+    fetch("https://hack.invest-open.ru/jwt/verify", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          jwt: token
+        }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(json => {
+        setData(json);
+      })
+      .catch(error => {
+        console.log('error', error);
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }, [])
+
+  if (loading) return <div>
+    <h1> Pleses wait some time.... </h1> </div>;
+  if (error) return <Login setToken={
+    (userToken) => {
+      localStorage.setItem('jwtToken', userToken)
+    }} />
+  sessionStorage.setItem('userId', data.userId);
+  sessionStorage.setItem('role', data.role);
   return (
-    <div>
-      <Chat />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Chat />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
+

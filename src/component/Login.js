@@ -28,7 +28,7 @@ export default function Login({ setToken }) {
           login,
           password
         });
-        setToken(token);
+        setToken(token.jwtToken);
         window.location.href = '/';
       }
 
