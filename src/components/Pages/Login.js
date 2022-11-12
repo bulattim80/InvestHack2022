@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './Login.css';
 import PropTypes from 'prop-types'
 import { SHA256, enc } from 'crypto-js';
-import useToken from './useToken';
 
 async function loginUser(credentials) {
     credentials.password = SHA256(credentials.password).toString(enc.Hex);
@@ -28,25 +27,25 @@ export default function Login({ setToken }) {
           login,
           password
         });
-        setToken(token);
+        setToken(token.jwtToken);
         window.location.href = '/';
       }
 
     return (
-        <div className="login-wrapper">
-            <h1>Please Log In</h1>
+        <div className="login-wrapper mt-5">
             <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setLogin(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
+                <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Вход</h1>
+                <div class="form-floating mb-3">
+                    <label for="floatingInput">Логин</label>
+                    <input type="Username" onChange={e => setLogin(e.target.value)} class="form-control"/>
                 </div>
+                <div class="form-floating mb-3">
+                    <label for="floatingPassword">Пароль</label>
+                    <input type="password" onChange={e => setPassword(e.target.value)} class="form-control"/>
+                </div>
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+                <p class="mt-5 mb-3 text-muted"></p>
             </form>
         </div>
     )
