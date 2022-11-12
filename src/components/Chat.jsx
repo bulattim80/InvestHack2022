@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Babble from './Babble';
+import useToken from '../component/useToken';
 // import MessageForm from './MessageForm';
 
 const data = {
@@ -12,7 +13,7 @@ const data = {
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
             "sender": 100501,
-            "recipient": 100500,
+            "recipient": 100222,
             "dialogId": 1,
             "timestamp": 1668251123440
         },
@@ -23,7 +24,7 @@ const data = {
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
             "sender": 100501,
-            "recipient": 100500,
+            "recipient": 100222,
             "dialogId": 1,
             "timestamp": 1668250908735
         },
@@ -33,7 +34,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668249832128
@@ -44,7 +45,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668210110022
@@ -55,7 +56,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668196481210
@@ -66,7 +67,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668191616137
@@ -77,7 +78,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668191590907
@@ -88,7 +89,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668187631345
@@ -99,7 +100,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668183544761
@@ -110,7 +111,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668183535972
@@ -121,7 +122,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668171772012
@@ -132,7 +133,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668171754167
@@ -143,7 +144,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668171747159
@@ -154,7 +155,7 @@ const data = {
             "data": "{\"widget\":\"custom data\"}",
             "messageType": "WIDGET",
             "mediaUrl": "https://cdn-icons-png.flaticon.com/512/945/945244.png",
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668168695928
@@ -165,7 +166,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668162853140
@@ -176,7 +177,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668162813875
@@ -187,7 +188,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668162617494
@@ -198,7 +199,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668155585037
@@ -209,7 +210,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668153997208
@@ -220,7 +221,7 @@ const data = {
             "data": null,
             "messageType": "TEXT",
             "mediaUrl": null,
-            "sender": 100500,
+            "sender": 100222,
             "recipient": 100501,
             "dialogId": 1,
             "timestamp": 1668153956319
@@ -228,42 +229,66 @@ const data = {
     ]
 }
 
-function Chat(params) {
-  var result = [];
-
-  // onSendMessage = async () => {
-  //   const api_url = "";
-  //   const data = await api_url.json();
-  //   console.log(data);
-  // }
-
-  for (let index = 0; index < data.messages.length; index++) {
-    result.push(Babble(data.messages[index]));
-  }
-  return (
-    <div class="container py-5">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-8 col-lg-6 col-xl-4">
-
-          {/* <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center p-3"
-              style="border-top: 4px solid #ffa900;">
-              <h5 class="mb-0">Chat messages</h5>
-              <div class="d-flex flex-row align-items-center">
-                <span class="badge bg-warning me-3">20</span>
-                <i class="fas fa-minus me-3 text-muted fa-xs"></i>
-                <i class="fas fa-comments me-3 text-muted fa-xs"></i>
-                <i class="fas fa-times text-muted fa-xs"></i>
-              </div>
-            </div> */}
-            <div>
-              {result}
-              {/* <MessageForm onSendMessage={this.onSendMessage}/> */}
-            </div>
-          </div>
-        </div>
-      </div>
-  );
+function GetName(token, id_message) {
+    if (token.userId == id_message) {
+        if (token.role == "OPERATOR") {
+            return "Оператор";
+        } else {
+            return token.login;
+        }
+    } else {
+        if (token.role == "OPERATOR") {
+            return "Пользователь";
+        } else {
+            return "Оператор";
+        }
+    }
 }
 
-export default Chat;
+export default function Chat() {
+    const { token, setToken } = useToken();
+    var result = [];
+    console.log(token.jwtToken);
+
+    // const dialogId = await fetch("https://hack.invest-open.ru/chat/dialog",
+    //     {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             "X-Authorization": 'Bearer ' + token.jwtToken,
+    //             'Access-Control-Allow-Methods': 'GET,POST'
+    //         },
+    //     })
+    //     .then(response => {
+    //         return response.json().dialogId;
+    //     });
+    // console.log(dialogId);
+    // const data = await fetch("https://hack.invest-open.ru/chat/history?dialogId=" + dialogId,
+    // {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         "X-Authorization": 'Bearer ' + token.jwtToken,
+    //     },
+    // })
+    // .then(response => {
+    //     return response.json();
+    // });
+
+    for (let index = data.messages.length - 1; index >= 0; index--) {
+        result.push(Babble(data.messages[index],
+            token.userId == data.messages[index].sender,
+            GetName(token, data.messages[index].sender)));
+    }
+    return (
+        <div class="container py-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-10">
+                    <div>
+                        {result}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

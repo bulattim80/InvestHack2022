@@ -34,31 +34,28 @@ function formatDate(date) {
   return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }
 
-function Babble(props) {
+function Babble(props, reverse=false, author_name="Пользователь") {
   let date = formatDate(new Date(props.timestamp))
-  if (props.sender == 100500) {
+  if (!reverse) {
     return (
-
-      <div class="a mb-3 pr-0 pl-0 ">
-        <h5>Пользователь</h5>
-        {/* <img src="{avatar_me}" alt="111" /> */}
+      <div class="a mb-3 pr-0 pl-0 align-items-start">
+        <h5>{author_name}</h5>
         <div class="card-body bg-light ">
           <p class="card-text text-dark">{props.text}</p>
         </div>
         <h6 p-0> {date}</h6>
-      </div>);
-
+      </div>
+      );
   } else {
     return (
-      <div class="a mb-3 pr-0 pl-0 ">
-        <h5>Брокер</h5>
-        {/* <img src="{avatar}" alt="222" /> */}
-        <div class="card-body ">
+      <div class="a mb-3 pr-0 pl-0">
+        <h5>{author_name}</h5>
+        <div class="card-body">
           <p class="card-text">{props.text}</p>
         </div>
         <h6 p-0> {date}</h6>
-      </div>);
-
+      </div>
+      );
   }
 
 }
