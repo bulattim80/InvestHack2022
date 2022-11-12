@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 
-import Babble from './Babble';
+import Babble from '../Widgets/Babble';
 // import MessageForm from './MessageForm';
 
 export default function Chat() {

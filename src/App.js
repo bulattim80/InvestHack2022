@@ -1,9 +1,10 @@
 import { React, useEffect, useState } from 'react';
 import './App.css';
-import Chat from './components/Chat';
+import Chat from './components/Pages/Chat';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import Login from './components/Login';
-import Logout from './components/Logout';
+import Login from './components/Pages/Login';
+import Logout from './components/Pages/Logout';
+import StockGraph from './components/Widgets/Graphs/StockGraph';
 
 export default function App() {
   const [data, setData] = useState(null);
