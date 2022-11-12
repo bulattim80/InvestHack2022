@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import './App.css';
-import Chat from './component/Chat';
+import Chat from './components/Chat';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import Login from './component/Login';
-import Logout from './component/Logout';
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 export default function App() {
   const [data, setData] = useState(null);

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './Login.css';
 import PropTypes from 'prop-types'
 import { SHA256, enc } from 'crypto-js';
-import useToken from './useToken';
 
 async function loginUser(credentials) {
     credentials.password = SHA256(credentials.password).toString(enc.Hex);
