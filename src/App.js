@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Chat from './components/Chat';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Home from './component/Home';
 import Login from './component/Login';
@@ -26,15 +27,8 @@ export default function App() {
     return <Login setToken={setToken} />
   }
   return (
-    <div className="wrapper">
-      <h1>Application</h1>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/logout" element={<Logout />}/>
-        </Routes>
-      </Router>
+    <div>
+          <Chat />
     </div>
   );
 }
