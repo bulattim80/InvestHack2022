@@ -24,29 +24,33 @@ export default function Login({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await loginUser({
-          login,
-          password
+            login,
+            password
         });
         setToken(token.jwtToken);
         window.location.href = '/';
-      }
+    }
 
     return (
-        <div className="login-wrapper mt-5">
-            <form onSubmit={handleSubmit}>
-                <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Вход</h1>
-                <div class="form-floating mb-3">
-                    <label for="floatingInput">Логин</label>
-                    <input type="Username" onChange={e => setLogin(e.target.value)} class="form-control"/>
-                </div>
-                <div class="form-floating mb-3">
-                    <label for="floatingPassword">Пароль</label>
-                    <input type="password" onChange={e => setPassword(e.target.value)} class="form-control"/>
-                </div>
-
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
-                <p class="mt-5 mb-3 text-muted"></p>
-            </form>
+        <div className="container">
+            <dev class="logo">
+                <img src="https://tibox.tk/static/time_to_dev.svg" alt="TimeToDev" />
+            </dev>
+            <div className="login-wrapper mt-5">
+                <form onSubmit={handleSubmit} class='f p-5'>
+                    <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Войдите</h1>
+                    <div class="form-floating mb-3">
+                        <input type="Username" onChange={e => setLogin(e.target.value)} class="form-control text-center" placeholder='Логин' />
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" onChange={e => setPassword(e.target.value)} class="form-control text-center" placeholder='Пароль' />
+                    </div>
+                    <div class='text-center'>
+                        <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+                    </div>
+                    <p class="mt-5 mb-3 text-muted"></p>
+                </form>
+            </div>
         </div>
     )
 }

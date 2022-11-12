@@ -88,3 +88,33 @@ background-color: #FFFFFF;
 .header{
   margin-bottom: 6em;
 }
+.form-floating input{
+  border-radius: 15px;
+  background: #F1FAFE;
+  border-color: #3AB6EC;
+  border-width: 2px;
+  width: 20em;
+}
+
+.login-wrapper h1{
+  font-weight: bolder;
+}
+
+.btn{
+  background: #5D3FAF;
+  width: 10em;
+    border-radius: 15px;
+}
+.f{
+  border-radius: 15px;
+  border-color: #3AB6EC;
+  border-width: 10px;
+}
+.logo{
+  display: flex;
+  justify-content: center;
+  margin: 6em;
+}
+.logo img{
+  width: 25em;
+}
