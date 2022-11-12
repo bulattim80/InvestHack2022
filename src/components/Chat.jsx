@@ -285,5 +285,3 @@ export default function Chat() {
         </div>
     );
 }
-
-export default Chat;
