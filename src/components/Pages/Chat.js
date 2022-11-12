@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 
 import Babble from '../Widgets/Babble';
 import FormMessage from '../Widgets/FormMessage';
-import Header from '../Widgets/Header';
+import Header from '../Header';
 // import MessageForm from './MessageForm';
 
 export default function Chat() {
