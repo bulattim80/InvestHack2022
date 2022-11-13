@@ -17,6 +17,7 @@ code {
   background-color: #3AB6EC;
   padding: 10px;
   border-radius: 15px;
+  min-width: 10em;
 }
 
 .card-body p{
@@ -90,4 +91,39 @@ background-color: #FFFFFF;
 }
 .FormMessage{
   margin-top: 5em;
+}
+.form-floating input {
+  border-radius: 15px;
+  background: #F1FAFE;
+  border-color: #3AB6EC;
+  border-width: 2px;
+  width: 20em;
+}
+
+.login-wrapper h1 {
+  font-weight: bolder;
+}
+
+.btn {
+  background: #5D3FAF;
+  width: 10em;
+  border-radius: 15px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 6em;
+}
+
+.logo img {
+  width: 25em;
+}
+.card_img{
+  min-width: 5em;
+  min-height: 5em;
+}
+.card_img img{
+  width: max-content;
+  height: 5em;
 }

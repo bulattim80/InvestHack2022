@@ -168,7 +168,6 @@ export default function Chat() {
     if (errorSelf) return "Error to get info about self";
     if (errorComp) return "Error to get info about companion";
 
-    window.scrollTo(0, document.body.scrollHeight);
     sessionStorage.setItem("dialogId", dialogId);
 
     const getName = (mesUserId) => {
@@ -191,7 +190,7 @@ export default function Chat() {
             <div class="row d-flex justify-content-center">
                 <div class="col-12">
                     <div>
-                        <Header />
+                        <Header companionInfo={companionInfo} role={role}/>
                         {result}
                         <FormMessage updateMessages={() => refetchMes()} />
                     </div>

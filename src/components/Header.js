@@ -4,7 +4,9 @@ import { faCircleUser, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function Header(props) {
+    const companionInfo = props.companionInfo;
+    const role = props.role;
     return (
         <div class="header">
             <nav class="navbar fixed-top navbar-light justify-content-space-betweeen">
@@ -14,8 +16,8 @@ export default function Header() {
                 </div>
 
                 <div class="cb">
-                    <h1>Иванов Андрей</h1>
-                    <p>Брокер</p>
+                    <h1>{companionInfo.surname + " " + companionInfo.name + " " + companionInfo.middleName}</h1>
+                    <p>{role === "CLIENT" ? "Брокер" : "Клиент"}</p>
                 </div>
 
                 <div class='headerIconsR p-2'>
