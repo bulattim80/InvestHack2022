@@ -190,7 +190,7 @@ export default function Chat() {
             <div class="row d-flex justify-content-center">
                 <div class="col-12">
                     <div>
-                        <Header companionInfo={companionInfo} role={role}/>
+                        <Header selfInfo={selfInfo} companionInfo={companionInfo} role={role}/>
                         {result}
                         <FormMessage updateMessages={() => refetchMes()} />
                     </div>

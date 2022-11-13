@@ -7,12 +7,18 @@ import { Link } from 'react-router-dom';
 export default function Header(props) {
     const companionInfo = props.companionInfo;
     const role = props.role;
+    const selfInfo = props.selfInfo;
     return (
         <div class="header">
             <nav class="navbar fixed-top navbar-light justify-content-space-betweeen">
 
                 <div class='headerIconsL p-2'>
-                    <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} /></Link>
+                    <Link to="/profile">
+                        {selfInfo.avatar ? 
+                            <img src={selfInfo.avatar} width="32px" height="32px"/> : 
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        }
+                        </Link>
                 </div>
 
                 <div class="cb">

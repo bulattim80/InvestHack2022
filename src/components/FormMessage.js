@@ -36,14 +36,20 @@ export default function FormMessage({ updateMessages }) {
         }).catch(error => console.log("messagePost", error));
         document.getElementById("exampleFormControlTextarea1").value = "";
     }
+    const onEnterPress = (e) => {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            handleSubmit(e);
+        }
+    }
     return (
-        <div class="FormMessage">
+        <div class="FormMessage" onKeyDown={onEnterPress}>
             <form onSubmit={handleSubmit}>
                 <div class="form-group fixed-bottom navbar-light bg-light p-1 m-0">
                     <div class='formIcons p-2'>
                         <FontAwesomeIcon icon={faPaperclip} />
                     </div>
-                    <input onChange={e => setMessage(e.target.value)} class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder='Введите сообщение' />
+                    <textarea onChange={e => setMessage(e.target.value)} class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder='Введите сообщение' />
                     <div class='formIcons p-2'>
                         <label>
                             <FontAwesomeIcon icon={faPaperPlane} />
