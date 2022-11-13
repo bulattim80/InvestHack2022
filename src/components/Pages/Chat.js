@@ -45,13 +45,21 @@ export default function Chat() {
                 throw response;
             })
             .then(newMessages => {
-                window.scrollTo(0, document.body.scrollHeight);
+                let res = JSON.parse(sessionStorage.getItem("messages"));
                 setMessages(newMessages);
+                if (res.messages.length != newMessages.messages.length) {
+                    console.log("new messages");
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
             })
             .catch((err) => {
                 setErrorMes(err);
             });
     };
+
+    const refetch = async () => {
+        refetchMes();
+    }
 
     useEffect(() => {
         fetch("https://hack.invest-open.ru/chat/dialog", options)
@@ -61,8 +69,8 @@ export default function Chat() {
                 }
                 throw response;
             })
-            .then(json => { 
-                return json.dialogId; 
+            .then(json => {
+                return json.dialogId;
             })
             .then(newDialogId => {
                 setDialogId(newDialogId);
@@ -74,6 +82,7 @@ export default function Chat() {
                         throw response;
                     })
                     .then(messages => {
+                        sessionStorage.setItem("messages", JSON.stringify(messages));
                         setMessages(messages);
                         let compId = "";
                         if (messages.messages.length > 1) {
@@ -146,7 +155,7 @@ export default function Chat() {
                 setErrorSelf(true);
             })
             .finally(() => setLoadingSelf(false));
-        const timer = setInterval(() => refetchMes(), 1000);
+        const timer = setInterval(() => refetch(), 1000);
 
         return () => clearInterval(timer);
     }, []);
@@ -155,7 +164,7 @@ export default function Chat() {
     // getUsersInfo(data);
     if (loadingDId || loadingMes || loadingSelf || loadingComp) return "Loading...";
     if (errorDId) return "Error to get dialogId!";
-    if (errorMes) return "Error to get messages!"; 
+    if (errorMes) return "Error to get messages!";
     if (errorSelf) return "Error to get info about self";
     if (errorComp) return "Error to get info about companion";
 
@@ -184,7 +193,7 @@ export default function Chat() {
                     <div>
                         <Header />
                         {result}
-                        <FormMessage updateMessages={() => refetchMes()}/>
+                        <FormMessage updateMessages={() => refetchMes()} />
                     </div>
                 </div>
             </div>

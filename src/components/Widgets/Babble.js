@@ -43,7 +43,7 @@ function Babble(props, reverse=false, author_name="Пользователь") {
         <div class="card-body bg-light ">
           <p class="card-text text-dark">{props.text}</p>
         </div>
-        <h6 p-0> {date}</h6>
+        <h6> {date}</h6>
       </div>
       );
   } else {
@@ -53,7 +53,7 @@ function Babble(props, reverse=false, author_name="Пользователь") {
         <div class="card-body">
           <p class="card-text">{props.text}</p>
         </div>
-        <h6 p-0> {date}</h6>
+        <h6> {date}</h6>
       </div>
       );
   }

@@ -11,11 +11,6 @@ export default function FormMessage({ updateMessages }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(JSON.stringify({
-            dialogId: dialogId,
-            text: message,
-            messageType: "TEXT",
-        }));
         await fetch("https://hack.invest-open.ru/message/send", {
             method: 'POST',
             headers: {
@@ -39,15 +34,16 @@ export default function FormMessage({ updateMessages }) {
                 updateMessages();
             }
         }).catch(error => console.log("messagePost", error));
+        document.getElementById("exampleFormControlTextarea1").value = "";
     }
     return (
-        <div className="FormMessage mt-5">
+        <div class="FormMessage">
             <form onSubmit={handleSubmit}>
                 <div class="form-group fixed-bottom navbar-light bg-light p-1 m-0">
                     <div class='formIcons p-2'>
                         <FontAwesomeIcon icon={faPaperclip} />
                     </div>
-                    <textarea onChange={e => setMessage(e.target.value)} class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder='Введите сообщение'></textarea>
+                    <input onChange={e => setMessage(e.target.value)} class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder='Введите сообщение' />
                     <div class='formIcons p-2'>
                         <label>
                             <FontAwesomeIcon icon={faPaperPlane} />

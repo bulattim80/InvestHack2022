@@ -81,7 +81,7 @@ export default function App() {
     if (error) return "Error!";
 
     return (
-        <div className="login-wrapper mt-5">
+        <div class="login-wrapper mt-5">
             <form onSubmit={handleSubmit}>
                 <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Профиль</h1>
                 <div class="form-floating mb-3">
