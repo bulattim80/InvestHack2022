@@ -17,7 +17,6 @@ code {
   background-color: #3AB6EC;
   padding: 10px;
   border-radius: 15px;
-  min-width: 10em;
 }
 
 .card-body p{
@@ -63,6 +62,14 @@ code {
 .headerIconsL svg{
   height: 2.5em;
   color: #3AB6EC;
+}
+
+.card-avatar img
+{
+  border-radius: 25px;
+  border-color: #3AB6EC;
+  height: 2.5em;
+  width: 2.5em;
 }
 
 .headerIconsL img{

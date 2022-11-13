@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 
 
 function formatDate(date) {
@@ -34,36 +36,56 @@ function formatDate(date) {
   return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }
 
-function Babble(props, reverse=false, author_name="Пользователь", avatar) {
+function Babble(props, reverse = false, author_name = "Пользователь", avatar) {
   let date = formatDate(new Date(props.timestamp))
   if (!reverse) {
     return (
       <div class="a mb-3 pr-0 pl-0 align-items-start">
         <h5>{author_name}</h5>
-        <div class="card-body bg-light ">
-          <p class="card-text text-dark">{props.text}</p>
-          {props.messageType == "MEDIA" ? 
-            <div className='card_img'><img src={props.mediaUrl}  alt='' />
-            </div>: ""
-          }
+        <div class="d-flex flex-row">
+          <div class='card-avatar p-2'>
+            {avatar ?
+              <img src={avatar} /> :
+              <FontAwesomeIcon icon={faCircleUser} />
+            }
+          </div>
+          <div class="d-flex flex-column align-items-start pt-1">
+            <div class="card-body bg-light mr-5">
+              <p class="card-text text-dark mr-1">{props.text}</p>
+              {props.messageType == "MEDIA" ?
+                <div className='card_img'><img src={props.mediaUrl} alt='' />
+                </div> : ""
+              }
+            </div>
+            <h6> {date}</h6>
+          </div>
         </div>
-        <h6> {date}</h6>
       </div>
-      );
+    );
   } else {
     return (
       <div class="a mb-3 pr-0 pl-0">
         <h5>{author_name}</h5>
-        <div class="card-body">
-          <p class="card-text">{props.text}</p>
-          {props.messageType == "MEDIA" ? 
-            <div className='card_img'><img src={props.mediaUrl}  alt='' />
-            </div>: ""
-          }
+        <div class="d-flex flex-row-reverse">
+          <div class='card-avatar p-2'>
+            {avatar ?
+              <img src={avatar} /> :
+              <FontAwesomeIcon icon={faCircleUser} />
+            }
+          </div>
+          <div class="d-flex flex-column align-items-end pt-1">
+            <div class="card-body ml-5">
+              <p class="card-text ml-1">{props.text}</p>
+              {props.messageType == "MEDIA" ?
+                <div className='card_img'><img src={props.mediaUrl} alt='' />
+                </div> : ""
+              }
+            </div>
+            <h6> {date}</h6>
+          </div>
         </div>
-        <h6> {date}</h6>
       </div>
-      );
+    );
   }
 
 }
