@@ -9,6 +9,7 @@ import NoPage from './components/Pages/NoPage';
 import StockGraph from './components/Widgets/Graphs/StockGraph';
 
 export default function App() {
+  document.title = "Hack&Change 2022";
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -49,8 +50,7 @@ export default function App() {
       })
   }, [])
 
-  if (loading) return <div>
-    <h1> Pleses wait some time.... </h1> </div>;
+  if (loading) return <div> loading... </div>;
   if (error) return <Login setToken={
     (userToken) => {
       localStorage.setItem('jwtToken', userToken)
@@ -58,16 +58,17 @@ export default function App() {
   sessionStorage.setItem('userId', data.userId);
   sessionStorage.setItem('role', data.role);
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Chat />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-      </div>
-    </Router>
+    
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<Chat />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </div>
+      </Router>
   );
 }
 

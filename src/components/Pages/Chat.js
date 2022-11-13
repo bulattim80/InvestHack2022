@@ -6,6 +6,7 @@ import Header from '../Header';
 // import MessageForm from './MessageForm';
 
 export default function Chat() {
+    document.title = "Hack&Change 2022 - Chat";
     const role = sessionStorage.getItem("role");
     const token = localStorage.getItem('jwtToken');
     const userId = sessionStorage.getItem("userId");
@@ -187,16 +188,16 @@ export default function Chat() {
 
 
     return (
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-12">
-                    <div>
-                        <Header selfInfo={selfInfo} companionInfo={companionInfo} role={role}/>
-                        {result}
-                        <FormMessage updateMessages={() => refetchMes()} />
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12">
+                        <div>
+                            <Header selfInfo={selfInfo} companionInfo={companionInfo} role={role} />
+                            {result}
+                            <FormMessage updateMessages={() => refetchMes()} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }

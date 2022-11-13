@@ -80,6 +80,8 @@ export default function App() {
     if (loading) return "Loading...";
     if (error) return "Error!";
 
+    document.title = "Profile";
+    
     return (
         <div class="login-wrapper mt-5">
             <form onSubmit={handleSubmit}>
