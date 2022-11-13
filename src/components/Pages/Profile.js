@@ -52,7 +52,7 @@ export default function App() {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        await fetch("https://hack.invest-open.ru/auth",
+        await fetch("https://hack.invest-open.ru/user/info",
             {
                 method: 'POST',
                 headers: {
@@ -68,11 +68,11 @@ export default function App() {
                     }
                 ),
             })
+            .then(response => response.json())
             .catch(error => {
                 console.log('error', error);
                 setError(true);
-            })
-            .then(response => response.json());
+            });
         window.location.href = '/';
     }
 
@@ -86,11 +86,11 @@ export default function App() {
                 <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Профиль</h1>
                 <div class="form-floating mb-3">
                     <label for="floatingInput">Фамилия</label>
-                    <input type="name" onChange={e => setName(e.target.value)} class="form-control" value={name}/>
+                    <input type="name" onChange={e => setSurname(e.target.value)} class="form-control" value={name}/>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingPassword">Имя</label>
-                    <input type="name" onChange={e => setSurname(e.target.value)} class="form-control" value={surname} />
+                    <input type="name" onChange={e => setName(e.target.value)} class="form-control" value={surname} />
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingPassword">Отчество</label>
