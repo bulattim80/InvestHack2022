@@ -7,17 +7,120 @@ import Header from '../Header';
 
 export default function Chat() {
     const role = sessionStorage.getItem("role");
-    const userId = sessionStorage.getItem("userId");
     const token = localStorage.getItem('jwtToken');
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [selfInfo, setSelf] = useState();
-    const [companionInfo, setCompanionInfo] = useState();
+    const userId = sessionStorage.getItem("userId");
 
+    const [dialogId, setDialogId] = useState(-1);
+    const [loadingDId, setLoadingDId] = useState(true);
+    const [errorDId, setErrorDId] = useState(false);
 
-    const getUserInfo = async (userId) => {
-        return fetch("https://hack.invest-open.ru/user/info?userId=" + userId, {
+    const [messages, setMessages] = useState({ messages: [] });
+    const [loadingMes, setLoadingMes] = useState(true);
+    const [errorMes, setErrorMes] = useState(false);
+
+    const [selfInfo, setSelfInfo] = useState();
+    const [loadingSelf, setLoadingSelf] = useState(true);
+    const [errorSelf, setErrorSelf] = useState(false);
+
+    const [companionInfo, setCompInfo] = useState();
+    const [loadingComp, setLoadingComp] = useState(true);
+    const [errorComp, setErrorComp] = useState(false);
+
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": 'Bearer ' + token
+        },
+        redirect: 'follow'
+    };
+
+    var result = [];
+
+    const refetchMes = async () => {
+        fetch("https://hack.invest-open.ru/chat/history?dialogId=" + sessionStorage.getItem("dialogId"), options)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then(newMessages => {
+                window.scrollTo(0, document.body.scrollHeight);
+                setMessages(newMessages);
+            })
+            .catch((err) => {
+                setErrorMes(err);
+            });
+    };
+
+    useEffect(() => {
+        fetch("https://hack.invest-open.ru/chat/dialog", options)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then(json => { 
+                return json.dialogId; 
+            })
+            .then(newDialogId => {
+                setDialogId(newDialogId);
+                fetch("https://hack.invest-open.ru/chat/history?dialogId=" + newDialogId, options)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw response;
+                    })
+                    .then(messages => {
+                        setMessages(messages);
+                        let compId = "";
+                        if (messages.messages.length > 1) {
+                            compId = (messages.messages[0].sender == userId ? messages.messages[0].recipient : messages.messages[0].sender) + '';
+                        }
+                        return compId;
+                    })
+                    .then(compId => {
+                        return fetch("https://hack.invest-open.ru/user/info?userId=" + compId, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                "Authorization": 'Bearer ' + token
+                            },
+                            redirect: 'follow'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json();
+                                }
+                                throw response;
+                            })
+                            .then(res => {
+                                setCompInfo({
+                                    surname: res.surname,
+                                    name: res.name,
+                                    middleName: res.middleName,
+                                    avatar: res.avatar
+                                });
+                            })
+                            .catch(error => {
+                                console.log('error', error);
+                                setErrorComp(true);
+                            })
+                            .finally(() => setLoadingComp(false));
+                    })
+                    .catch(error => {
+                        console.log("error", error);
+                        setErrorMes(true);
+                    })
+                    .finally(() => setLoadingMes(false));
+            })
+            .catch(error => {
+                console.log("error", error);
+                setErrorDId(true);
+            })
+            .finally(() => setLoadingDId(false));
+        fetch("https://hack.invest-open.ru/user/info?userId=" + userId, {
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": 'Bearer ' + token
@@ -30,117 +133,50 @@ export default function Chat() {
                 }
                 throw response;
             })
-            .then(resJson => {
-                return resJson;
+            .then(res => {
+                setSelfInfo({
+                    surname: res.surname,
+                    name: res.name,
+                    middleName: res.middleName,
+                    avatar: res.avatar
+                });
             })
             .catch(error => {
                 console.log('error', error);
-                setError(true);
+                setErrorSelf(true);
             })
-            .finally(() => setLoading(false));
-    }
+            .finally(() => setLoadingSelf(false));
+        const timer = setInterval(() => refetchMes(), 1000);
 
-    var result = [];
+        return () => clearInterval(timer);
+    }, []);
 
-    const options = {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": 'Bearer ' + token
-        },
-        redirect: 'follow'
-    };
-
-    const getUsersInfo = async (messages) => {
-        console.log("in func getUsersInfo", data);
-        console.log("in func foreach", messages[0]);
-        getUserInfo(userId).then((res) => {
-            setSelf({
-                surname: res.surname,
-                name: res.name,
-                middleName: res.middleName,
-                avatar: res.avatar
-            });
-        });
-        if (messages.length == 0) return;
-        let compId = messages[0].sender;
-        if (compId == userId) compId = messages[0].recipient;
-        getUserInfo().then((res) => {
-            setCompanionInfo({
-                surname: res.surname,
-                name: res.name,
-                middleName: res.middleName,
-                avatar: res.avatar
-            });
-        });
-        setLoading(false);
-    }
-
-    useEffect(() => {
-        setLoading(true);
-        const fetchMessages = async (dialogId) => {
-            return fetch("https://hack.invest-open.ru/chat/history?dialogId="
-                + dialogId, options)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw response;
-                })
-                .then(resJson => {
-                    setData(resJson);
-                    console.log("in func", resJson);
-                    return resJson;
-                })
-        }
-        const fetchDialogId = async () => {
-            return fetch("https://hack.invest-open.ru/chat/dialog", options)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw response;
-                })
-                .then(json => {
-                    return json.dialogId;
-                })
-                .catch(error => {
-                    console.log("error", error);
-                    setError(true);
-                });
-        }
-        fetchDialogId()
-            .then(dialogId => fetchMessages(dialogId))
-            .then(messages => {
-                setData(messages);
-                console.log("in then", messages);
-                console.log("in then data", data);
-                getUsersInfo(messages)
-            })
-        console.log("in end of useEffect", data);
-    }, [])
-
-    const getName = (mesUserId) => {
-        // if (userId === mesUserId) {
-        //     return selfInfo.surname + " " + selfInfo.name + " " + selfInfo.middleName;
-        // } else {
-        //     return companionInfo.surname + " " + companionInfo.name + " " + companionInfo.middleName;
-        // }
-        return "Test";
-    }
 
     // getUsersInfo(data);
-    if (loading) return "Loading...";
-    if (error) return "Error!";
+    if (loadingDId || loadingMes || loadingSelf || loadingComp) return "Loading...";
+    if (errorDId) return "Error to get dialogId!";
+    if (errorMes) return "Error to get messages!"; 
+    if (errorSelf) return "Error to get info about self";
+    if (errorComp) return "Error to get info about companion";
 
-    console.log("after error", data);
-    // console.log(selfInfo);
-    // console.log(companionInfo);
+    window.scrollTo(0, document.body.scrollHeight);
+    sessionStorage.setItem("dialogId", dialogId);
 
-    for (let index = data.messages.length - 1; index >= 0; index--) {
-        result.push(Babble(data.messages[index],
-            userId == data.messages[index].sender,
-            getName(data.messages[index].sender)));
+    const getName = (mesUserId) => {
+        if (mesUserId == userId) {
+            return selfInfo.surname + " " + selfInfo.name + " " + selfInfo.middleName;
+        } else {
+            return companionInfo.surname + " " + companionInfo.name + " " + companionInfo.middleName;
+        }
     }
+
+    for (let index = messages.messages.length - 1; index >= 0; index--) {
+        result.push(Babble(messages.messages[index],
+            userId == messages.messages[index].sender,
+            getName(messages.messages[index].sender)));
+    }
+
+
     return (
         <div class="container">
             <div class="row d-flex justify-content-center">
@@ -148,7 +184,7 @@ export default function Chat() {
                     <div>
                         <Header />
                         {result}
-                        <FormMessage />
+                        <FormMessage updateMessages={() => refetchMes()}/>
                     </div>
                 </div>
             </div>

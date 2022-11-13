@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Login from './components/Pages/Login';
 import Logout from './components/Pages/Logout';
 import Profile from './components/Pages/Profile';
+import NoPage from './components/Pages/NoPage';
 import StockGraph from './components/Widgets/Graphs/StockGraph';
 
 export default function App() {
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/" element={<Chat />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </div>
     </Router>

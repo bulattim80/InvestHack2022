@@ -2,16 +2,17 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+import Logout from './Pages/Logout';
+import Profile from './Pages/Profile';
 
 export default function Header() {
     return (
         <div className="header">
             <nav class="navbar fixed-top navbar-light justify-content-space-betweeen">
 
-            <FontAwesomeIcon icon="fa-solid fa-user" />
-
             <div class='headerIconsL p-2'>                
-                <FontAwesomeIcon icon={faCircleUser} />
+                <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} /></Link>
                 </div>
 
                 <div className="cb">
@@ -20,7 +21,7 @@ export default function Header() {
                 </div>
 
                 <div class='headerIconsR p-2'>                
-                <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                <Link to="/logout"><FontAwesomeIcon icon={faArrowRightFromBracket} /></Link>
                 </div>
 
 
