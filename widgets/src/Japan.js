@@ -1,12 +1,12 @@
 import React from 'react'
 import Plot from 'react-plotly.js';
-class Stock extends React.Component{
+class Japan extends React.Component{
 constructor(props){
     super(props);
     this.state = {
 
         stockChartXValues: [],
-        stockChartXValues: []
+        stockChartYValues: []
     }
 }
 
@@ -47,31 +47,45 @@ fetchStock(){
             }
         )
 }
+render() {
+        let y0 = [];
+        let y1 = [];
+        let data1 = []
+        for (var i = this.state.stockChartYValues.length-1; i > 0; i--) {
+            data1.push({
+                name:this.state.stockChartXValues[i]+"-"+this.state.stockChartXValues[i+1],
+                y: [this.state.stockChartYValues[i],this.state.stockChartYValues[i+1]],
+                marker: {color: ((this.state.stockChartYValues[i]-this.state.stockChartYValues[i+1]<0)?'#F94241':'#1FBA66')},
+                showlegend: false   ,
+                type: 'box'
+            })
+        }
 
-   render() {
-    return (
-        <div>
-            <h1>Stock Market</h1>
-            
-            <Plot
-                data={[
-            {
-            x: this.state.stockChartXValues,
-            y: this.state.stockChartYValues,
-            type: 'color',
-            mode: 'points',
-            //3AB6EC
-            marker:{color: 'blue'},
-            }
-            //,{type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
-    ]}
-    
-        layout={{width: 720, height: 281, title: `Amazon stock`}}
-      />
-      
-        </div>
         
-    )
+        
+        // let trace1 = {
+        //     y: y0,
+        //     type: 'box'
+        // };
+
+        // let trace2 = {
+        //     y: y1,
+        //     type: 'box'
+        // };
+
+        // let trace3 = {
+        //     y: y0,
+        //     type: 'box'
+        // };
+
+        // data1 = [trace1, trace2, trace3];
+      
+        return (
+            <div>
+                <Plot data={data1}/>
+            </div>
+        )
    }
+
 }
-export default Stock;
+export default Japan;
