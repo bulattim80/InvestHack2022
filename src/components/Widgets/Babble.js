@@ -34,7 +34,7 @@ function formatDate(date) {
   return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }
 
-function Babble(props, reverse=false, author_name="Пользователь") {
+function Babble(props, reverse=false, author_name="Пользователь", avatar) {
   let date = formatDate(new Date(props.timestamp))
   if (!reverse) {
     return (

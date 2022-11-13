@@ -181,7 +181,8 @@ export default function Chat() {
     for (let index = messages.messages.length - 1; index >= 0; index--) {
         result.push(Babble(messages.messages[index],
             userId == messages.messages[index].sender,
-            getName(messages.messages[index].sender)));
+            getName(messages.messages[index].sender),
+            userId == messages.messages[index].sender ? selfInfo.avatar : companionInfo.avatar));
     }
 
 

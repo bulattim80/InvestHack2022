@@ -64,6 +64,14 @@ code {
   height: 2.5em;
   color: #3AB6EC;
 }
+
+.headerIconsL img{
+  border-radius: 25px;
+  border-color: #3AB6EC;
+  height: 2.5em;
+  width: 2.5em;
+}
+
 .headerIconsR svg{
   height: 2.5em;
   color: #F94241;

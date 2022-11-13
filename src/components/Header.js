@@ -15,7 +15,7 @@ export default function Header(props) {
                 <div class='headerIconsL p-2'>
                     <Link to="/profile">
                         {selfInfo.avatar ? 
-                            <img src={selfInfo.avatar} width="32px" height="32px"/> : 
+                            <img src={selfInfo.avatar}/> : 
                             <FontAwesomeIcon icon={faCircleUser} />
                         }
                         </Link>
