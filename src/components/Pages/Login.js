@@ -37,7 +37,7 @@ export default function Login({ setToken }) {
                 <img src="https://tibox.tk/static/time_to_dev.svg" alt="TimeToDev" />
             </dev>
             <div className="login-wrapper mt-5">
-                <form onSubmit={handleSubmit} class='f p-5'>
+                <form onSubmit={handleSubmit}>
                     <h1 class="h3 mb-3 fw-normal pl-7 pr-7 text-center">Войдите</h1>
                     <div class="form-floating mb-3">
                         <input type="Username" onChange={e => setLogin(e.target.value)} class="form-control text-center" placeholder='Логин' />

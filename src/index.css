@@ -19,34 +19,33 @@ code {
   border-radius: 15px;
 }
 
-.card-body p{
+.card-body p {
   color: white;
   font-size: 16px;
 }
 
-.a{
+.a {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
 }
 
-.a h6{
+.a h6 {
   color: #818990;
   font-size: 12px;
 }
 
-.a img{
+.a img {
   width: 15px;
   height: 15px;
 }
 
-.form-group 
-{
+.form-group {
   box-shadow: 0px -4px 8px rgba(0, 125, 241, 0.12);
- display: flex;
+  display: flex;
 }
 
-.form-group textarea{
+.form-group textarea {
   border-radius: 15px;
   background: #F1FAFE;
   border-color: #3AB6EC;
@@ -54,41 +53,46 @@ code {
   max-height: 100px;
 }
 
-.formIcons svg{
+.formIcons svg {
   height: 1.8em;
   color: #3AB6EC;
 }
 
-.headerIconsL svg{
+.headerIconsL svg {
   height: 2.5em;
   color: #3AB6EC;
 }
-.headerIconsR svg{
+
+.headerIconsR svg {
   height: 2.5em;
   color: #F94241;
 }
 
-.cb{
+.cb {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.cb h1{
+
+.cb h1 {
   font-size: 20px;
 }
-.cb p{
+
+.cb p {
   font-size: 15px;
 }
 
-.navbar{
+.navbar {
   border-bottom: 1px solid #D8F0FB;
-box-shadow: 0px 4px 4px rgba(0, 92, 176, 0.05);
-background-color: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 92, 176, 0.05);
+  background-color: #FFFFFF;
 }
-.header{
+
+.header {
   margin-bottom: 6em;
 }
-.form-floating input{
+
+.form-floating input {
   border-radius: 15px;
   background: #F1FAFE;
   border-color: #3AB6EC;
@@ -96,25 +100,30 @@ background-color: #FFFFFF;
   width: 20em;
 }
 
-.login-wrapper h1{
+.login-wrapper h1 {
   font-weight: bolder;
 }
 
-.btn{
+.btn {
   background: #5D3FAF;
   width: 10em;
-    border-radius: 15px;
-}
-.f{
   border-radius: 15px;
-  border-color: #3AB6EC;
-  border-width: 10px;
 }
-.logo{
+
+.logo {
   display: flex;
   justify-content: center;
   margin: 6em;
 }
-.logo img{
+
+.logo img {
   width: 25em;
+}
+.card_img{
+  min-width: 5em;
+  min-height: 5em;
+}
+.card_img img{
+  width: max-content;
+  height: 5em;
 }

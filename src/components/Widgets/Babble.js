@@ -34,28 +34,36 @@ function formatDate(date) {
   return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }
 
-function Babble(props, reverse=false, author_name="Пользователь") {
+function Babble(props, reverse = false, author_name = "Пользователь") {
   let date = formatDate(new Date(props.timestamp))
+  let card_img ='';
+  if(props.messageType != 'TEXT'){
+    card_img = (<div className='card_img'><img src={props.mediaUrl} alt='' />
+    </div>);
+  }
+
   if (!reverse) {
     return (
       <div class="a mb-3 pr-0 pl-0 align-items-start">
         <h5>{author_name}</h5>
         <div class="card-body bg-light ">
           <p class="card-text text-dark">{props.text}</p>
+          {card_img}
         </div>
         <h6 p-0> {date}</h6>
       </div>
-      );
+    );
   } else {
     return (
       <div class="a mb-3 pr-0 pl-0">
         <h5>{author_name}</h5>
         <div class="card-body">
           <p class="card-text">{props.text}</p>
+          {card_img}
         </div>
         <h6 p-0> {date}</h6>
       </div>
-      );
+    );
   }
 
 }
