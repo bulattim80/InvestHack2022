@@ -42,6 +42,10 @@ function Babble(props, reverse=false, author_name="Пользователь", av
         <h5>{author_name}</h5>
         <div class="card-body bg-light ">
           <p class="card-text text-dark">{props.text}</p>
+          {props.messageType == "MEDIA" ? 
+            <div className='card_img'><img src={props.mediaUrl}  alt='' />
+            </div>: ""
+          }
         </div>
         <h6> {date}</h6>
       </div>
@@ -52,6 +56,10 @@ function Babble(props, reverse=false, author_name="Пользователь", av
         <h5>{author_name}</h5>
         <div class="card-body">
           <p class="card-text">{props.text}</p>
+          {props.messageType == "MEDIA" ? 
+            <div className='card_img'><img src={props.mediaUrl}  alt='' />
+            </div>: ""
+          }
         </div>
         <h6> {date}</h6>
       </div>
